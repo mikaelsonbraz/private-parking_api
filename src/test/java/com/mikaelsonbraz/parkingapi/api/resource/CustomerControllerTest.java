@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mikaelsonbraz.parkingapi.api.customer.dto.CustomerDTO;
 import com.mikaelsonbraz.parkingapi.api.customer.model.entity.Customer;
 import com.mikaelsonbraz.parkingapi.api.customer.service.CustomerService;
+import com.mikaelsonbraz.parkingapi.api.exceptions.BusinessException;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -58,8 +60,42 @@ public class CustomerControllerTest {
     }
 
     @Test
-    @DisplayName("Must throw a error when there is not enough customer data")
-    public void createInvalidCustomerTest(){
+    @DisplayName("Must throw an error when there is not enough customer data")
+    public void createInvalidCustomerTest() throws Exception{
 
+        String json = new ObjectMapper().writeValueAsString(new CustomerDTO());
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .post(CUSTOMER_API)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(json);
+
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("errors", Matchers.hasSize(2)));
+    }
+
+    @Test
+    @DisplayName("Must throw an error when there is duplicate CPFs Customers")
+    public void createCustomerWithDuplicateCpfTest() throws Exception{
+
+        CustomerDTO customerDto = CustomerDTO.builder().name("John").cpf("000.000.000-00").build();
+
+        String json = new ObjectMapper().writeValueAsString(customerDto);
+
+        BDDMockito.given(service.save(Mockito.any(Customer.class)))
+                .willThrow(new BusinessException("CPF já cadastrado"));
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .post(CUSTOMER_API)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(json);
+
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("errors", Matchers.hasSize(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("errors[0]").value("CPF já cadastrado"));
     }
 }
