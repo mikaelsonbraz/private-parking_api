@@ -5,6 +5,8 @@ import lombok.*;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+
 import java.io.Serializable;
 
 @Data //criar os getters, setters, toString e HashCodeAndEquals
@@ -16,8 +18,12 @@ public class CustomerDTO implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idCustomer;
+    private Integer idCustomer;
+
+    @NotEmpty
     private String name;
+
+    @NotEmpty
     private String cpf;
 
 }

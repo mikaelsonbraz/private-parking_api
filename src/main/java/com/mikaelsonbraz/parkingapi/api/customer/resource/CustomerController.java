@@ -3,9 +3,15 @@ package com.mikaelsonbraz.parkingapi.api.customer.resource;
 import com.mikaelsonbraz.parkingapi.api.customer.dto.CustomerDTO;
 import com.mikaelsonbraz.parkingapi.api.customer.model.entity.Customer;
 import com.mikaelsonbraz.parkingapi.api.customer.service.CustomerService;
+import com.mikaelsonbraz.parkingapi.api.exceptions.ApiErrors;
+import com.mikaelsonbraz.parkingapi.api.exceptions.BusinessException;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/customers")
@@ -21,12 +27,26 @@ public class CustomerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CustomerDTO create(@RequestBody CustomerDTO customerDTO){
+    public CustomerDTO create(@RequestBody @Valid CustomerDTO customerDTO){
 
         Customer entity = modelMapper.map(customerDTO, Customer.class);
 
         entity = service.save(entity);
 
         return modelMapper.map(entity, CustomerDTO.class);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiErrors handleValidationExceptions(MethodArgumentNotValidException exception){
+        BindingResult bindingResult = exception.getBindingResult();
+
+        return new ApiErrors(bindingResult);
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiErrors handleBusinessExceptions(BusinessException exception){
+        return new ApiErrors(exception);
     }
 }
