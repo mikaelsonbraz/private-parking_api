@@ -15,6 +15,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Optional;
+
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
 public class CustomerServiceTest {
@@ -67,5 +69,98 @@ public class CustomerServiceTest {
 
         Mockito.verify(repository, Mockito.never()).save(customer);
 
+    }
+
+    @Test
+    @DisplayName("Should obtain the customer by id")
+    public void getByIdTest() throws Exception{
+        //cenario
+        Integer id = 1;
+        Customer customer = Customer.builder()
+                .idCustomer(id)
+                .name("João")
+                .cpf("123.123.123-12").build();
+        Mockito.when(repository.findById(id)).thenReturn(Optional.of(customer));
+
+        //execução
+        Optional<Customer> foundCustomer = service.getById(id);
+
+        //verificação
+        Assertions.assertThat(foundCustomer.isPresent()).isTrue();
+        Assertions.assertThat(foundCustomer.get().getIdCustomer()).isEqualTo(id);
+        Assertions.assertThat(foundCustomer.get().getName()).isEqualTo(customer.getName());
+        Assertions.assertThat(foundCustomer.get().getCpf()).isEqualTo(customer.getCpf());
+    }
+
+    @Test
+    @DisplayName("Should return null when serach a nonexistent customer by id")
+    public void customerNotFoundByIdTest() throws Exception{
+        //cenario
+        Integer id = 1;
+        Mockito.when(repository.findById(id)).thenReturn(Optional.empty());
+
+        //execução
+        Optional<Customer> notFoundCustomer = service.getById(id);
+
+        //verificação
+        Assertions.assertThat(notFoundCustomer.isPresent()).isFalse();
+    }
+
+    @Test
+    @DisplayName("Should delete a customer on database")
+    public void deleteCustomerTest(){
+        //cenário
+        Customer customer = Customer.builder().idCustomer(1).name("João").cpf("111.111.111-22").build();
+
+        //execução
+        org.junit.jupiter.api.Assertions.assertDoesNotThrow(() -> service.delete(customer));
+
+        //verificação
+        Mockito.verify(repository, Mockito.times(1)).delete(customer);
+    }
+
+    @Test
+    @DisplayName("Should return IllegalArgumentException when try  delete the customer on db")
+    public void deleteInvalidCustomerTest(){
+        //cenario
+        Customer customer = new Customer();
+
+        //execução
+        org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> service.delete(customer));
+
+        //verificação
+        Mockito.verify(repository, Mockito.never()).delete(customer);
+    }
+
+    @Test
+    @DisplayName("Should update a customer on database")
+    public void updateCustomerTest(){
+        //cenario
+        Customer updatingCustomer = Customer.builder().idCustomer(1).name("João").cpf("333.333.333-33").build();
+        Customer updatedCustomer = Customer.builder().idCustomer(1).name("José").cpf("444.444.444-44").build();
+
+        Mockito.when(repository.save(updatingCustomer)).thenReturn(updatedCustomer);
+
+        //execução
+        Customer customer = service.update(updatingCustomer);
+
+        //verificações
+        Assertions.assertThat(customer.getIdCustomer()).isEqualTo(updatedCustomer.getIdCustomer());
+        Assertions.assertThat(customer.getName()).isEqualTo(updatedCustomer.getName());
+        Assertions.assertThat(customer.getCpf()).isEqualTo(updatedCustomer.getCpf());
+
+    }
+
+    @Test
+    @DisplayName("Should return IllegalArgumentException when try update the customer on db")
+    public void updateInvalidCustomerTest(){
+        //cenario
+        Customer customer = new Customer();
+
+        //execução
+        org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> service.update(customer));
+
+        //verificação
+        Mockito.verify(repository, Mockito.never()).save(customer);
     }
 }

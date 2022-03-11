@@ -12,6 +12,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Optional;
+
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
 @DataJpaTest
@@ -48,4 +50,21 @@ public class CustomerRepositoryTest {
         //verificação
         Assertions.assertThat(exists).isFalse();
     }
+
+    @Test
+    @DisplayName("Should return a customer by id")
+    public void findByIdTest(){
+        //cenario
+        Customer customer = Customer.builder()
+                .name("João")
+                .cpf("111.111.111-11").build();
+        entityManager.persist(customer);
+
+        //execução
+        Optional<Customer> foundCustomer = repository.findById(customer.getIdCustomer());
+
+        //verificação
+        Assertions.assertThat(foundCustomer.isPresent()).isTrue();
+    }
+
 }
