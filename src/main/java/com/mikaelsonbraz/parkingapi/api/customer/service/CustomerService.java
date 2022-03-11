@@ -9,4 +9,6 @@ public interface CustomerService {
     Customer save(Customer any);
 
     Optional<Customer> getById(Integer id);
+
+    void delete(Customer customer);
 }

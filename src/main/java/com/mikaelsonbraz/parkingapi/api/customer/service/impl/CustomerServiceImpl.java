@@ -29,4 +29,9 @@ public class CustomerServiceImpl implements CustomerService {
     public Optional<Customer> getById(Integer id) {
         return Optional.empty();
     }
+
+    @Override
+    public void delete(Customer customer) {
+
+    }
 }

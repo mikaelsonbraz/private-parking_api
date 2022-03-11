@@ -139,4 +139,36 @@ public class CustomerControllerTest {
         mvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
+
+    @Test
+    @DisplayName("Must delete a customer")
+    public void deleteCustomerTest() throws Exception{
+        //cenario
+        BDDMockito.given(service.getById(Mockito.anyInt())).willReturn(Optional.of(Customer.builder()
+                .idCustomer(1).name("João")
+                .cpf("111.111.111-11").build()));
+
+        //execução
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .delete(CUSTOMER_API.concat("/" + 1));
+
+        //verificação
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+
+    @Test
+    @DisplayName("Must return resource not found when not found a costumer by Id to deleting")
+    public void deleteInexistentCustomerTest() throws Exception{
+        //cenario
+        BDDMockito.given(service.getById(Mockito.anyInt())).willReturn(Optional.empty());
+
+        //execução
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .delete(CUSTOMER_API.concat("/" + 1));
+
+        //verificação
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
 }
