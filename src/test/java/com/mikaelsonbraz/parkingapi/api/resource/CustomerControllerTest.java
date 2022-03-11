@@ -158,8 +158,8 @@ public class CustomerControllerTest {
     }
 
     @Test
-    @DisplayName("Must return resource not found when not found a costumer by Id to deleting")
-    public void deleteInexistentCustomerTest() throws Exception{
+    @DisplayName("Must return resource not found when not found a costumer by Id to delete")
+    public void deleteNonexistentCustomerTest() throws Exception{
         //cenario
         BDDMockito.given(service.getById(Mockito.anyInt())).willReturn(Optional.empty());
 
@@ -170,5 +170,66 @@ public class CustomerControllerTest {
         //verificação
         mvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+    @DisplayName("Must update a existent customer")
+    public void updateCustomerTest() throws Exception{
+        //cenario
+        Integer id = 1;
+
+        String json = new ObjectMapper().writeValueAsString(CustomerDTO.builder()
+                .idCustomer(id)
+                .name("João")
+                .cpf("111.111.111-11").build());
+
+        Customer updatedCustomer = Customer.builder()
+                .idCustomer(id)
+                .name("José")
+                .cpf("222.222.222-22").build();
+
+        BDDMockito.given(service.getById(id)).willReturn(Optional.of(updatedCustomer));
+        BDDMockito.given(service.update(updatedCustomer)).willReturn(Customer.builder()
+                .idCustomer(id)
+                .name("José")
+                .cpf("222.222.222-22").build());
+
+        //execução
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .put(CUSTOMER_API.concat("/" + id))
+                .content(json)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        //verificação
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("idCustomer").value(id))
+                .andExpect(MockMvcResultMatchers.jsonPath("name").value("José"))
+                .andExpect(MockMvcResultMatchers.jsonPath("cpf").value("222.222.222-22"));
+    }
+
+    @Test
+    @DisplayName("Must return resource not found when not found a costumer by id to delete")
+    public void updateNonexistentCustomerTest() throws Exception{
+        //cenario
+        String json = new ObjectMapper().writeValueAsString(CustomerDTO.builder()
+                .idCustomer(1)
+                .name("João")
+                .cpf("111.111.111-11").build());
+
+        BDDMockito.given(service.getById(Mockito.anyInt())).willReturn(Optional.empty());
+
+        //execução
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .put(CUSTOMER_API.concat("/" + 1))
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json);
+
+        //verificação
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+
     }
 }

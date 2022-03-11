@@ -54,6 +54,20 @@ public class CustomerController {
         service.delete(customer);
     }
 
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public CustomerDTO update(@PathVariable Integer id, CustomerDTO customerDTO){
+        return service.getById(id).map(customer -> {
+
+            customer.setName(customerDTO.getName());
+            customer.setCpf(customerDTO.getCpf());
+            customer = service.update(customer);
+            return modelMapper.map(customer, CustomerDTO.class);
+
+        }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiErrors handleValidationExceptions(MethodArgumentNotValidException exception){
