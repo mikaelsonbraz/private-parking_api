@@ -27,17 +27,22 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Optional<Customer> getById(Integer id) {
-        return Optional.empty();
+        return this.repository.findById(id);
     }
 
     @Override
     public void delete(Customer customer) {
-
+        if (customer == null || customer.getIdCustomer() == null){
+            throw new IllegalArgumentException("Customer id not be null");
+        }
+        this.repository.delete(customer);
     }
 
     @Override
     public Customer update(Customer customer) {
-
-        return customer;
+        if (customer == null || customer.getIdCustomer() == null){
+            throw new IllegalArgumentException("Customer id not be null");
+        }
+        return this.repository.save(customer);
     }
 }
