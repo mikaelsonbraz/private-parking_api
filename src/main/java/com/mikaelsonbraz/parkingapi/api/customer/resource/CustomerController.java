@@ -36,6 +36,13 @@ public class CustomerController {
         return modelMapper.map(entity, CustomerDTO.class);
     }
 
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public CustomerDTO get(@PathVariable Integer id){
+        Customer customer = service.getById(id).get();
+        return modelMapper.map(customer, CustomerDTO.class);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiErrors handleValidationExceptions(MethodArgumentNotValidException exception){

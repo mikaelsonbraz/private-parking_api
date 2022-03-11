@@ -6,6 +6,8 @@ import com.mikaelsonbraz.parkingapi.api.customer.service.CustomerService;
 import com.mikaelsonbraz.parkingapi.api.exceptions.BusinessException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
@@ -21,5 +23,10 @@ public class CustomerServiceImpl implements CustomerService {
             throw new BusinessException("CPF já cadastrado");
         }
         return repository.save(customer);
+    }
+
+    @Override
+    public Optional<Customer> getById(Integer id) {
+        return Optional.empty();
     }
 }

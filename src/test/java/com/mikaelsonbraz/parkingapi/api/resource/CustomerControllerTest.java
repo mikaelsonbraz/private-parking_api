@@ -23,6 +23,8 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.Optional;
+
 @ExtendWith(SpringExtension.class) // pra criar um mini contexto de injeção de dependências
 @ActiveProfiles("test")
 @WebMvcTest
@@ -97,5 +99,28 @@ public class CustomerControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
                 .andExpect(MockMvcResultMatchers.jsonPath("errors", Matchers.hasSize(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("errors[0]").value("CPF já cadastrado"));
+    }
+
+    @Test
+    @DisplayName("Must return the customer details")
+    public void getCustomerDetailTest() throws Exception{
+        //cenario
+        Integer id = 1;
+        Customer customer = Customer.builder()
+                .idCustomer(id).name("João")
+                .cpf("111.111.111-11").build();
+        BDDMockito.given(service.getById(id)).willReturn(Optional.of(customer));
+
+        //execução
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .get(CUSTOMER_API.concat("/" + id))
+                .accept(MediaType.APPLICATION_JSON);
+
+        //verificação
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("idCustomer").value(id))
+                .andExpect(MockMvcResultMatchers.jsonPath("name").value(customer.getName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("cpf").value(customer.getCpf()));
     }
 }
