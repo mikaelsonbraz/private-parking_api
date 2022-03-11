@@ -34,4 +34,10 @@ public class CustomerServiceImpl implements CustomerService {
     public void delete(Customer customer) {
 
     }
+
+    @Override
+    public Customer update(Customer customer) {
+
+        return customer;
+    }
 }
