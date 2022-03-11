@@ -123,4 +123,20 @@ public class CustomerControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("name").value(customer.getName()))
                 .andExpect(MockMvcResultMatchers.jsonPath("cpf").value(customer.getCpf()));
     }
+
+    @Test
+    @DisplayName("Must thrown an error when there is no customer with the specified Id")
+    public void customerNotFoundTest() throws Exception{
+        //cenario
+        BDDMockito.given(service.getById(Mockito.anyInt())).willReturn(Optional.empty());
+
+        //execução
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .get(CUSTOMER_API.concat("/" + 1))
+                .accept(MediaType.APPLICATION_JSON);
+
+        //verificação
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
 }
