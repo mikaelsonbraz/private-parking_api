@@ -4,6 +4,8 @@ import com.mikaelsonbraz.parkingapi.api.customer.model.entity.Customer;
 import com.mikaelsonbraz.parkingapi.api.customer.model.repository.CustomerRepository;
 import com.mikaelsonbraz.parkingapi.api.customer.service.CustomerService;
 import com.mikaelsonbraz.parkingapi.api.exceptions.BusinessException;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -50,6 +52,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Page<Customer> find(Customer filter, Pageable pageRequest) {
-        return null;
+        Example<Customer> example = Example.of(filter, ExampleMatcher
+                .matching()
+                .withIgnoreCase()
+                .withIgnoreNullValues()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
+        );
+        return repository.findAll(example, pageRequest);
     }
 }
