@@ -67,4 +67,36 @@ public class CustomerRepositoryTest {
         Assertions.assertThat(foundCustomer.isPresent()).isTrue();
     }
 
+    @Test
+    @DisplayName("Should save a customer on db")
+    public void saveCustomerTest(){
+        //cenario
+        Customer customer = Customer.builder().name("João").cpf("111.111.111-22").build();
+        Customer savedCustomer = repository.save(customer);
+
+        //execução
+
+        //verificação, verificando se o customer savedCustomer tem id
+        Assertions.assertThat(savedCustomer.getIdCustomer()).isNotNull();
+
+    }
+
+    @Test
+    @DisplayName("Should delete a customer on db")
+    public void deleteCustomerTest(){
+        //cenario
+        Customer customer = Customer.builder().name("João").cpf("222.222.222-22").build();
+        entityManager.persist(customer);
+
+        //execução
+        Customer savedCustomer = entityManager.find(Customer.class, customer.getIdCustomer());
+        repository.delete(savedCustomer);
+        Customer deletedCustomer = entityManager.find(Customer.class, customer.getIdCustomer());
+
+        //verificação
+        Assertions.assertThat(savedCustomer).isNotNull();
+        Assertions.assertThat(deletedCustomer).isNull();
+
+    }
+
 }
