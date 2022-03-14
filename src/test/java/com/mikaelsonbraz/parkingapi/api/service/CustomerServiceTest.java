@@ -12,9 +12,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
@@ -162,5 +167,26 @@ public class CustomerServiceTest {
 
         //verificação
         Mockito.verify(repository, Mockito.never()).save(customer);
+    }
+
+    @Test
+    @DisplayName("Should test find() method on CustomerServiceImpl")
+    public void findCustomerTest(){
+        //cenario
+        Customer customer = Customer.builder().name("João").cpf("111.111.111-11").build();
+        PageRequest pageRequest = PageRequest.of(0, 10);
+        Page<Customer> page = new PageImpl<Customer>(Arrays.asList(customer), pageRequest, 1);
+        Mockito.when(repository.findAll(Mockito.any(Example.class), Mockito.any(PageRequest.class)))
+                .thenReturn(page);
+
+        //execução
+        Page<Customer> result = service.find(customer, pageRequest);
+
+        //verificação
+        Assertions.assertThat(result.getTotalElements()).isEqualTo(1);
+        Assertions.assertThat(result.getContent()).isEqualTo(Arrays.asList(customer));
+        Assertions.assertThat(result.getPageable().getPageNumber()).isEqualTo(0);
+        Assertions.assertThat(result.getPageable().getPageSize()).isEqualTo(10);
+
     }
 }
