@@ -15,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -23,6 +26,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 @ExtendWith(SpringExtension.class) // pra criar um mini contexto de injeção de dependências
@@ -230,6 +234,31 @@ public class CustomerControllerTest {
         //verificação
         mvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
+
+    }
+
+    @Test
+    @DisplayName("Should return customer by given parameters")
+    public void findCustomerTest() throws Exception{
+        //cenario
+        Customer customer = Customer.builder().name("João").cpf("111.111.111-11").build();
+
+        BDDMockito.given(service.find(Mockito.any(Customer.class), Mockito.any(Pageable.class)))
+                .willReturn(new PageImpl<Customer>(Arrays.asList(customer), PageRequest.of(0, 10), 1));
+
+        //execução
+        String queryString = String.format("/?name=" + customer.getName() + "&cpf=" + customer.getCpf() + "&page=0&size=10");
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .get(CUSTOMER_API.concat(queryString))
+                .accept(MediaType.APPLICATION_JSON);
+
+        //verificação
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("content", Matchers.hasSize(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("totalElements").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("pageable.pageSize").value(10))
+                .andExpect(MockMvcResultMatchers.jsonPath("pageable.pageNumber").value(0));
 
     }
 }
