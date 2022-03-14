@@ -4,6 +4,8 @@ import com.mikaelsonbraz.parkingapi.api.customer.model.entity.Customer;
 import com.mikaelsonbraz.parkingapi.api.customer.model.repository.CustomerRepository;
 import com.mikaelsonbraz.parkingapi.api.customer.service.CustomerService;
 import com.mikaelsonbraz.parkingapi.api.exceptions.BusinessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -44,5 +46,10 @@ public class CustomerServiceImpl implements CustomerService {
             throw new IllegalArgumentException("Customer id not be null");
         }
         return this.repository.save(customer);
+    }
+
+    @Override
+    public Page<Customer> find(Customer filter, Pageable pageRequest) {
+        return null;
     }
 }

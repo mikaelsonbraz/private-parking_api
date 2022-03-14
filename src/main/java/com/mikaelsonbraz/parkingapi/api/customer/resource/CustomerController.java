@@ -6,6 +6,9 @@ import com.mikaelsonbraz.parkingapi.api.customer.service.CustomerService;
 import com.mikaelsonbraz.parkingapi.api.exceptions.ApiErrors;
 import com.mikaelsonbraz.parkingapi.api.exceptions.BusinessException;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/customers")
@@ -45,6 +50,15 @@ public class CustomerController {
                 .map(customer -> modelMapper.map(customer, CustomerDTO.class))
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public Page<CustomerDTO> find(CustomerDTO dto, Pageable pageRequest){
+        Customer filter = modelMapper.map(dto, Customer.class);
+        return service
+                .find(filter, pageRequest)
+                .map(entity -> modelMapper.map(entity, CustomerDTO.class));
     }
 
     @DeleteMapping("/{id}")
