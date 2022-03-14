@@ -152,7 +152,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    @DisplayName("Should return IllegalArgumentException when try update the customer on db")
+    @DisplayName("Should return IllegalArgumentException when try update a nonexistent customer on db")
     public void updateInvalidCustomerTest(){
         //cenario
         Customer customer = new Customer();
