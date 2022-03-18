@@ -1,4 +1,4 @@
-package com.mikaelsonbraz.parkingapi.api.resource;
+package com.mikaelsonbraz.parkingapi.api.customer.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mikaelsonbraz.parkingapi.api.customer.dto.CustomerDTO;

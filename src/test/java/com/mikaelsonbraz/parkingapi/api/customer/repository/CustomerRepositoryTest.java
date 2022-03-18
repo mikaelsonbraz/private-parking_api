@@ -1,4 +1,4 @@
-package com.mikaelsonbraz.parkingapi.api.model.repository;
+package com.mikaelsonbraz.parkingapi.api.customer.repository;
 
 import com.mikaelsonbraz.parkingapi.api.customer.model.entity.Customer;
 import com.mikaelsonbraz.parkingapi.api.customer.model.repository.CustomerRepository;
