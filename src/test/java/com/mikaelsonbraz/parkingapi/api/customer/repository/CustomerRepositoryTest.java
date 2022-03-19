@@ -72,9 +72,13 @@ public class CustomerRepositoryTest {
     public void saveCustomerTest(){
         //cenario
         Customer customer = Customer.builder().name("João").cpf("111.111.111-22").build();
+        Customer customer2 = Customer.builder().name("João").cpf("111.111.111-22").build();
         Customer savedCustomer = repository.save(customer);
+        Customer savedCustomer2 = repository.save(customer2);
 
         //execução
+        System.out.println(savedCustomer.getIdCustomer());
+        System.out.println(savedCustomer2.getIdCustomer());
 
         //verificação, verificando se o customer savedCustomer tem id
         Assertions.assertThat(savedCustomer.getIdCustomer()).isNotNull();
