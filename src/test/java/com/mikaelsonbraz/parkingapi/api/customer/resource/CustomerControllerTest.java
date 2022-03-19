@@ -238,7 +238,7 @@ public class CustomerControllerTest {
     }
 
     @Test
-    @DisplayName("Should return customer by given parameters")
+    @DisplayName("Must return customer by given parameters")
     public void findCustomerTest() throws Exception{
         //cenario
         Customer customer = Customer.builder().name("João").cpf("111.111.111-11").build();
