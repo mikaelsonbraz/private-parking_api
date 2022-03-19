@@ -10,6 +10,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -29,6 +31,10 @@ public class CustomerServiceTest {
 
     @MockBean
     CustomerRepository repository;
+
+    @Autowired
+    @MockBean
+    TestEntityManager testEntityManager;
 
     @BeforeEach
     public void setUp(){
@@ -115,12 +121,18 @@ public class CustomerServiceTest {
     public void deleteCustomerTest(){
         //cenário
         Customer customer = Customer.builder().idCustomer(1).name("João").cpf("111.111.111-22").build();
+        Customer customer2 = Customer.builder().idCustomer(2).name("José").cpf("222.222.222-11").build();
+        testEntityManager.persist(customer2);
 
         //execução
         org.junit.jupiter.api.Assertions.assertDoesNotThrow(() -> service.delete(customer));
+        service.delete(customer2);
+        Customer deletedCustomer = testEntityManager.find(Customer.class, customer2);
 
         //verificação
         Mockito.verify(repository, Mockito.times(1)).delete(customer);
+        Assertions.assertThat(deletedCustomer).isNull();
+
     }
 
     @Test
