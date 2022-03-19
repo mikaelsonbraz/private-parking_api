@@ -2,7 +2,6 @@ package com.mikaelsonbraz.parkingapi.api.customer.service;
 
 import com.mikaelsonbraz.parkingapi.api.customer.model.entity.Customer;
 import com.mikaelsonbraz.parkingapi.api.customer.model.repository.CustomerRepository;
-import com.mikaelsonbraz.parkingapi.api.customer.service.CustomerService;
 import com.mikaelsonbraz.parkingapi.api.customer.service.impl.CustomerServiceImpl;
 import com.mikaelsonbraz.parkingapi.api.exceptions.BusinessException;
 import org.assertj.core.api.Assertions;
@@ -98,7 +97,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    @DisplayName("Should return null when serach a nonexistent customer by id")
+    @DisplayName("Should return null when search a nonexistent customer by id")
     public void customerNotFoundByIdTest() throws Exception{
         //cenario
         Integer id = 1;
@@ -144,7 +143,7 @@ public class CustomerServiceTest {
         Customer updatingCustomer = Customer.builder().idCustomer(1).name("João").cpf("333.333.333-33").build();
         Customer updatedCustomer = Customer.builder().idCustomer(1).name("José").cpf("444.444.444-44").build();
 
-        Mockito.when(repository.save(updatingCustomer)).thenReturn(updatedCustomer);
+        Mockito.when(repository.save(Mockito.any(Customer.class))).thenReturn(updatedCustomer);
 
         //execução
         Customer customer = service.update(updatingCustomer);
