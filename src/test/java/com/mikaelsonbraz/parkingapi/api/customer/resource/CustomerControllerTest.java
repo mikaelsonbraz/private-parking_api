@@ -247,7 +247,7 @@ public class CustomerControllerTest {
                 .willReturn(new PageImpl<Customer>(Arrays.asList(customer), PageRequest.of(0, 10), 1));
 
         //execução
-        String queryString = String.format("/?name=" + customer.getName() + "&cpf=" + customer.getCpf() + "&page=0&size=10");
+        String queryString = "/?name=" + customer.getName() + "&cpf=" + customer.getCpf() + "&page=0&size=10";
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .get(CUSTOMER_API.concat(queryString))
                 .accept(MediaType.APPLICATION_JSON);
