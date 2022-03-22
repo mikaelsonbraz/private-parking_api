@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface CustomerService {
 
-    Customer save(Customer any);
+    Customer save(Customer customer);
 
     Optional<Customer> getById(Integer id);
 
