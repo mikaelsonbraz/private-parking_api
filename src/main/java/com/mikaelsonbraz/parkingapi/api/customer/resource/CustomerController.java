@@ -23,9 +23,9 @@ public class CustomerController {
     private CustomerService service;
     private ModelMapper modelMapper;
 
-    public CustomerController(CustomerService service, ModelMapper mapper) {
+    public CustomerController(CustomerService service, ModelMapper Modelmapper) {
         this.service = service;
-        this.modelMapper = mapper;
+        this.modelMapper = Modelmapper;
     }
 
     @PostMapping
