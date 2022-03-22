@@ -5,7 +5,7 @@ import com.mikaelsonbraz.parkingapi.api.rent.service.RentService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RentServiceImpl extends RentService {
+public class RentServiceImpl implements RentService {
 
     RentRepository repository;
 
