@@ -34,6 +34,11 @@ public class RentServiceImpl implements RentService {
     }
 
     @Override
+    public Rent update(Rent rent) {
+        return null;
+    }
+
+    @Override
     public Page<Rent> find(Rent filter, Pageable pageRequest) {
         return null;
     }
