@@ -12,7 +12,7 @@ public class RentingController {
     private ModelMapper modelMapper;
 
 
-    public RentingController(RentingService service, ModelMapper modelMapper){
+    public RentingController(ModelMapper modelMapper){
         this.modelMapper = modelMapper;
     }
 }
