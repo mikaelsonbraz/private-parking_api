@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/rents")
 public class RentingController {
 
+    private RentingService service;
     private ModelMapper modelMapper;
 
-
-    public RentingController(ModelMapper modelMapper){
+    public RentingController(RentingService service, ModelMapper modelMapper){
+        this.service = service;
         this.modelMapper = modelMapper;
     }
 }
