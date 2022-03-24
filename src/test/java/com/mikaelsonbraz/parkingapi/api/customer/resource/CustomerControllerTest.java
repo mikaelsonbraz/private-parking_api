@@ -31,7 +31,7 @@ import java.util.Optional;
 
 @ExtendWith(SpringExtension.class) // pra criar um mini contexto de injeção de dependências
 @ActiveProfiles("test")
-@WebMvcTest
+@WebMvcTest(controllers = CustomerController.class)
 @AutoConfigureMockMvc
 public class CustomerControllerTest {
 

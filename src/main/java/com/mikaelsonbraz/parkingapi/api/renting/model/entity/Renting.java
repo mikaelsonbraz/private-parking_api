@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -22,10 +25,10 @@ public class Renting {
     private Integer idRenting;
 
     @Column
-    private Date entryDate;
+    private LocalDateTime entryDate;
 
     @Column
-    private Date departureDate;
+    private LocalDateTime departureDate;
 
     @Column
     private double hourPrice;
