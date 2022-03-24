@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
@@ -66,5 +67,48 @@ public class RentingControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("entryDate").value(dto.getEntryDate().toString()))
                 .andExpect(MockMvcResultMatchers.jsonPath("hourPrice").value(dto.getHourPrice()))
                 .andExpect(MockMvcResultMatchers.jsonPath("dayPrice").value(dto.getDayPrice()));
+    }
+
+    @Test
+    @DisplayName("Must return renting details by id")
+    public void getRentingDetailsTest() throws Exception{
+        //cenário
+        Integer id = 1;
+        Renting renting = Renting.builder()
+                .idRenting(id)
+                .entryDate(LocalDateTime.of(2020, 8, 12, 15, 30, 15))
+                .hourPrice(2)
+                .dayPrice(20)
+                .build();
+        BDDMockito.given(service.getById(id)).willReturn(Optional.of(renting));
+
+        //execução
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .get(RENTING_API.concat("/" + id))
+                .accept(MediaType.APPLICATION_JSON);
+
+        //verificação
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("idRenting").value(id))
+                .andExpect(MockMvcResultMatchers.jsonPath("entryDate").value(renting.getEntryDate().toString()))
+                .andExpect(MockMvcResultMatchers.jsonPath("hourPrice").value(renting.getHourPrice()))
+                .andExpect(MockMvcResultMatchers.jsonPath("dayPrice").value(renting.getDayPrice()));
+    }
+
+    @Test
+    @DisplayName("Must throw Http Status NOT FOUND when ther is no Renting with the specified id")
+    public void rentingNotFoundTest() throws Exception{
+        //cenário
+        BDDMockito.given(service.getById(Mockito.anyInt())).willReturn(Optional.empty());
+
+        //execução
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .get(RENTING_API.concat("/1"))
+                .accept(MediaType.APPLICATION_JSON);
+
+        //verificação
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 }
