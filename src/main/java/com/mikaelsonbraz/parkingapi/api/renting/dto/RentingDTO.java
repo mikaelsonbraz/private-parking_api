@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -24,9 +27,9 @@ public class RentingDTO implements Serializable {
     private Integer idRenting;
 
     @NotEmpty
-    private Date entryDate;
+    private LocalDateTime entryDate;
 
-    private Date departureDate;
+    private LocalDateTime departureDate;
 
     @NotEmpty
     private double hourPrice;
