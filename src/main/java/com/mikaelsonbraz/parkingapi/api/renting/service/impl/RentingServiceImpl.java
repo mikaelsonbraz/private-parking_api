@@ -5,6 +5,8 @@ import com.mikaelsonbraz.parkingapi.api.renting.model.repository.RentingReposito
 import com.mikaelsonbraz.parkingapi.api.renting.service.RentingService;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class RentingServiceImpl implements RentingService {
 
@@ -17,5 +19,10 @@ public class RentingServiceImpl implements RentingService {
     @Override
     public Renting save(Renting renting) {
         return repository.save(renting);
+    }
+
+    @Override
+    public Optional<Renting> getById(Integer id) {
+        return this.repository.findById(id);
     }
 }

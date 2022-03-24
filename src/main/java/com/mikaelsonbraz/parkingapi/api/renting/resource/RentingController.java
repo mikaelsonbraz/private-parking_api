@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 
@@ -28,4 +29,14 @@ public class RentingController {
 
         return modelMapper.map(entity, RentingDTO.class);
     }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public RentingDTO get(@PathVariable Integer id){
+        return service.getById(id)
+                .map(renting -> modelMapper.map(renting, RentingDTO.class))
+                .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
+
 }
