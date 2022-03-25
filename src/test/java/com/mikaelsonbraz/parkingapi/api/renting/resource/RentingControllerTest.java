@@ -5,6 +5,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.mikaelsonbraz.parkingapi.api.renting.dto.RentingDTO;
 import com.mikaelsonbraz.parkingapi.api.renting.model.entity.Renting;
 import com.mikaelsonbraz.parkingapi.api.renting.service.RentingService;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -110,5 +111,24 @@ public class RentingControllerTest {
         //verificação
         mvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+    @DisplayName("Must throw BAD REQUEST when there is no entryDate Renting data on requisition")
+    public void createInvalidRentingTest() throws Exception{
+        //cenario
+        String json = new ObjectMapper().writeValueAsString(new RentingDTO());
+
+        //execução
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .post(RENTING_API)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json);
+
+        //verificação
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("errors", Matchers.hasSize(3)));
     }
 }
