@@ -21,7 +21,7 @@ public class RentingController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public RentingDTO create(RentingDTO rentingDTO){
+    public RentingDTO create(@RequestBody @Valid RentingDTO rentingDTO){
 
         Renting entity = modelMapper.map(rentingDTO, Renting.class);
 

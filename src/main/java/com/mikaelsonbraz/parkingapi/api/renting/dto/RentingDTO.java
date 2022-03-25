@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -23,13 +23,18 @@ public class RentingDTO implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idRenting;
 
-    @NotEmpty
+    @NotNull
+    @Past
     private LocalDateTime entryDate;
 
+    @Null
     private LocalDateTime departureDate;
 
-    @NotEmpty
+    @NotNull
+    @Positive
     private double hourPrice;
 
+    @NotNull
+    @Positive
     private double dayPrice;
 }
