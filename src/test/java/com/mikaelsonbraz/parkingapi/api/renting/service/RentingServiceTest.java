@@ -10,8 +10,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -26,10 +24,6 @@ public class RentingServiceTest {
 
     @MockBean
     RentingRepository repository;
-
-    @MockBean
-    @Autowired
-    TestEntityManager entityManager;
 
     public Renting createNewRenting(){
         return Renting.builder().idRenting(1).entryDate(LocalDateTime.of(2020, 8, 19, 14, 30)).hourPrice(5).dayPrice(100).build();
@@ -59,7 +53,7 @@ public class RentingServiceTest {
 
     @Test
     @DisplayName("Must throw an error when entryDate receives an invalid value")
-    public void shoulThrowErrorWhenEntryDateIsInvalidTest(){
+    public void shouldThrowErrorWhenEntryDateIsInvalidTest(){
         //cenario
         Renting renting = createNewRenting();
         renting.setEntryDate(LocalDateTime.of(2023, 4, 5, 22, 40));
@@ -71,5 +65,38 @@ public class RentingServiceTest {
         Assertions.assertThat(exception)
                 .isInstanceOf(BusinessException.class)
                 .hasMessage("Data inválida");
+    }
+
+    @Test
+    @DisplayName("Must update a renting with a departure date")
+    public void shouldUpdateRenting(){
+        //cenário
+        Renting renting = createNewRenting();
+        renting.setDepartureDate(LocalDateTime.of(2021, 8, 18, 14, 30));
+        Mockito.when(repository.save(renting)).thenReturn(renting);
+
+        //execução
+        Renting updatedRenting = service.update(renting);
+
+        //verificação
+        Assertions.assertThat(updatedRenting.getIdRenting()).isNotNull();
+        Assertions.assertThat(updatedRenting.getEntryDate()).isEqualTo(renting.getEntryDate());
+        Assertions.assertThat(updatedRenting.getDepartureDate()).isEqualTo(renting.getDepartureDate());
+    }
+
+    @Test
+    @DisplayName("Must throw an error when departure date is before the entry date on renting")
+    public void shouldThrowAnErrorWhenDepartureIsBeforeEntryDateTest(){
+        //cenário
+        Renting renting = createNewRenting();
+        renting.setDepartureDate(LocalDateTime.of(2019, 8, 19, 14, 30));
+
+        //execução
+        Throwable exception = Assertions.catchThrowable(() -> service.update(renting));
+
+        //verificação
+        Assertions.assertThat(exception)
+                .isInstanceOf(BusinessException.class)
+                .hasMessage("Data de partida não pode ser anterior a data de entrada");
     }
 }

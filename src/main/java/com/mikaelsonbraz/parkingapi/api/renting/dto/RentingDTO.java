@@ -30,9 +30,11 @@ public class RentingDTO implements Serializable {
     @Null
     private LocalDateTime departureDate;
 
+    @NotNull
     @Positive
     private double hourPrice;
 
+    @NotNull
     @Positive
     private double dayPrice;
 }
