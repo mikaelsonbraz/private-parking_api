@@ -1,5 +1,6 @@
 package com.mikaelsonbraz.parkingapi.api.renting.resource;
 
+import com.mikaelsonbraz.parkingapi.api.renting.dto.DepartureDateDTO;
 import com.mikaelsonbraz.parkingapi.api.renting.dto.RentingDTO;
 import com.mikaelsonbraz.parkingapi.api.renting.model.entity.Renting;
 import com.mikaelsonbraz.parkingapi.api.renting.service.RentingService;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/rents")
@@ -38,5 +40,12 @@ public class RentingController {
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateRenting(@PathVariable Integer id, @RequestBody DepartureDateDTO dto){
+        Renting renting = service.getById(id).get();
+        renting.setDepartureDate(dto.getDepartureDate());
 
+        service.update(renting);
+    }
 }
