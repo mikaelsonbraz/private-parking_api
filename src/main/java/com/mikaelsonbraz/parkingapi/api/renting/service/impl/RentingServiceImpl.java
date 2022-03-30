@@ -23,6 +23,8 @@ public class RentingServiceImpl implements RentingService {
     public Renting save(Renting renting) {
         if (renting.getEntryDate().isAfter(LocalDateTime.now())) {
             throw new BusinessException("Data inválida");
+            } else if (renting.getDayPrice() < renting.getHourPrice()){
+            throw new BusinessException("Valor do dia de estacionamento não pode ser menor que o valor da hora");
         }
         return repository.save(renting);
     }
