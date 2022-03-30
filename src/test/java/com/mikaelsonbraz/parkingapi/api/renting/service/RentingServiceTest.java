@@ -99,4 +99,20 @@ public class RentingServiceTest {
                 .isInstanceOf(BusinessException.class)
                 .hasMessage("Data de partida não pode ser anterior a data de entrada");
     }
+
+    @Test
+    @DisplayName("Must throw an error when dayPrice is less than hourPrice")
+    public void shouldThrowAnErrorWhenDayPriceIsLessThaHourPriceTest(){
+        //cenário
+        Renting renting = createNewRenting();
+        renting.setDayPrice(4);
+
+        //execução
+        Throwable exception = Assertions.catchThrowable(() -> service.save(renting));
+
+        //verificação
+        Assertions.assertThat(exception)
+                .isInstanceOf(BusinessException.class)
+                .hasMessage("Valor do dia de estacionamento não pode ser menor que o valor da hora");
+    }
 }
