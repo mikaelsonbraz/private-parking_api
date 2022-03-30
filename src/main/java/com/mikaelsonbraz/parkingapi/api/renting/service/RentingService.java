@@ -2,7 +2,6 @@ package com.mikaelsonbraz.parkingapi.api.renting.service;
 
 import com.mikaelsonbraz.parkingapi.api.renting.model.entity.Renting;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface RentingService {
