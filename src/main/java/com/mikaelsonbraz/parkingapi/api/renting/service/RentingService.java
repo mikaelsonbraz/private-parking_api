@@ -10,4 +10,6 @@ public interface RentingService {
     Optional<Renting> getById(Integer id);
 
     Renting update(Renting renting);
+
+    void delete(Renting renting);
 }

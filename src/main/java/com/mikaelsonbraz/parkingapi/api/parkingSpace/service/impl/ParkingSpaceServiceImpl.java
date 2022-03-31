@@ -31,7 +31,7 @@ public class ParkingSpaceServiceImpl implements ParkingSpaceService {
 
     @Override
     public ParkingSpace update(ParkingSpace space) {
-        if (space.getRenting().getDepartureDate() != null){
+        if (space.getRenting() != null && space.getRenting().getDepartureDate() != null){
             space.setOccupied(false);
             space.setRenting(null);
         }
