@@ -11,6 +11,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -26,6 +28,10 @@ public class ParkingSpaceServiceTest {
 
     @MockBean
     ParkingSpaceRepository repository;
+
+    @Autowired
+    @MockBean
+    TestEntityManager entityManager;
 
     public ParkingSpace createNewSpace(){
         return ParkingSpace.builder().idSpace(1).occupied(false).spaceType(0).build();
@@ -135,5 +141,34 @@ public class ParkingSpaceServiceTest {
         Assertions.assertThat(savedSpace.getIdSpace()).isNotNull();
         Assertions.assertThat(savedSpace.isOccupied()).isFalse();
         Assertions.assertThat(savedSpace.getRenting()).isNull();
+    }
+
+    @Test
+    @DisplayName("Must delete a parking space")
+    public void shouldDeleteParkingSpaceTest(){
+        //cenário
+        ParkingSpace space = createNewSpace();
+        entityManager.persist(space);
+
+        //execução
+        service.delete(space);
+        ParkingSpace deletedSpace = entityManager.find(ParkingSpace.class, space);
+
+        //verificação
+        Mockito.verify(repository, Mockito.times(1)).delete(space);
+        Assertions.assertThat(deletedSpace).isNull();
+    }
+
+    @Test
+    @DisplayName("Must throw IllegalArgumentException when trying to delete a invalid space")
+    public void deleteInvalidParkingSpaceTest(){
+        //cenário
+        ParkingSpace space = new ParkingSpace();
+
+        //execução
+
+        //verificação
+        org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class, () -> service.delete(space));
+        Mockito.verify(repository, Mockito.never()).delete(space);
     }
 }
