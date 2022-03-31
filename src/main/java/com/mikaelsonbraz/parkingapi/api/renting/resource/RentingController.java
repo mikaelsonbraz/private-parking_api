@@ -47,4 +47,12 @@ public class RentingController {
 
         service.update(renting);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteRenting(@PathVariable Integer id){
+        Renting renting = service.getById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        service.delete(renting);
+    }
 }
