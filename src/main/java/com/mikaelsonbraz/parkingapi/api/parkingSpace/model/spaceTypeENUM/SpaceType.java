@@ -13,7 +13,7 @@ public enum SpaceType {
     private final Integer code;
     private final String description;
 
-    private SpaceType toEnum(Integer code){
+    public static SpaceType toEnum(Integer code){
         if (code == null){
             return null;
         }

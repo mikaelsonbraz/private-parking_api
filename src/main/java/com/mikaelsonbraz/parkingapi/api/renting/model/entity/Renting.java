@@ -1,11 +1,13 @@
 package com.mikaelsonbraz.parkingapi.api.renting.model.entity;
 
+import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.entity.ParkingSpace;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Data
@@ -32,4 +34,8 @@ public class Renting {
 
     @Column
     private double dayPrice;
+
+    @OneToOne
+    @JoinColumn(name = "idParkingSpace")
+    private ParkingSpace parkingSpace;
 }

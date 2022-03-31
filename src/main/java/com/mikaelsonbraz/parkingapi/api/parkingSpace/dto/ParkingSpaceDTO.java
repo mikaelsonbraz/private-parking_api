@@ -1,15 +1,16 @@
 package com.mikaelsonbraz.parkingapi.api.parkingSpace.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mikaelsonbraz.parkingapi.api.renting.model.entity.Renting;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+
 
 @Data
 @Builder
@@ -26,4 +27,9 @@ public class ParkingSpaceDTO implements Serializable {
 
     @NotNull
     private Integer spaceType;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "parkingSpace")
+    private Renting renting;
+
 }
