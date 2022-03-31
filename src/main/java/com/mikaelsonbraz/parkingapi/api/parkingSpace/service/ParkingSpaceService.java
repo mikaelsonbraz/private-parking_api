@@ -12,4 +12,6 @@ public interface ParkingSpaceService {
     Optional<ParkingSpace> getById(Integer id);
 
     ParkingSpace update(ParkingSpace space);
+
+    void delete(ParkingSpace space);
 }
