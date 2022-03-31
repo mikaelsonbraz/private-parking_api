@@ -1,5 +1,8 @@
 package com.mikaelsonbraz.parkingapi.api.parkingSpace.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.spaceTypeENUM.SpaceType;
+import com.mikaelsonbraz.parkingapi.api.renting.model.entity.Renting;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,8 +24,24 @@ public class ParkingSpace {
     private Integer idSpace;
 
     @Column
-    private boolean occuppied;
+    private Integer spaceType;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "parkingSpace")
+    private Renting renting;
 
     @Column
-    private Integer spaceType;
+    private boolean occupied;
+
+    public SpaceType getSpaceType(){
+        return SpaceType.toEnum(spaceType);
+    }
+
+    public void setSpaceType(SpaceType code){
+        this.spaceType = code.getCode();
+    }
+
+    public String getSpaceTypeDescription(){
+        return this.getSpaceType().getDescription();
+    }
 }

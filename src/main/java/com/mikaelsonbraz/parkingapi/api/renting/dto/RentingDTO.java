@@ -1,13 +1,12 @@
 package com.mikaelsonbraz.parkingapi.api.renting.dto;
 
+import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.entity.ParkingSpace;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -37,4 +36,8 @@ public class RentingDTO implements Serializable {
     @NotNull
     @Positive
     private double dayPrice;
+
+    @OneToOne
+    @JoinColumn(name = "idParkingSpace")
+    private ParkingSpace parkingSpace;
 }
