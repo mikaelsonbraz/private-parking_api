@@ -162,4 +162,35 @@ public class RentingControllerTest {
         Mockito.verify(service, Mockito.times(1)).update(Renting.builder().idRenting(1).departureDate(localDateTime).build());
 
     }
+
+    @Test
+    @DisplayName("Must delete a renting and return HttpStatus.NO_CONTENT")
+    public void deleteRentingTest() throws Exception{
+        //cenário
+        Renting renting = Renting.builder().idRenting(1).build();
+        BDDMockito.given(service.getById(Mockito.anyInt())).willReturn(Optional.of(renting));
+
+        //execução
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .delete(RENTING_API.concat("/1"));
+
+        //verificação
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+
+    @Test
+    @DisplayName("Must throw HttpStatus.NOTFOUND when note found a renting")
+    public void deleteNonexistentRentingTest() throws Exception {
+        //cenário
+        BDDMockito.given(service.getById(Mockito.anyInt())).willReturn(Optional.empty());
+
+        //execução
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .delete(RENTING_API.concat("/1"));
+
+        //verificação
+        mvc.perform(request)
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
 }
