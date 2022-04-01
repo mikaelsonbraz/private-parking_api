@@ -27,7 +27,7 @@ public class ParkingSpace {
     private Integer spaceType;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "parkingSpace")
+    @OneToOne
     private Renting renting;
 
     @Column

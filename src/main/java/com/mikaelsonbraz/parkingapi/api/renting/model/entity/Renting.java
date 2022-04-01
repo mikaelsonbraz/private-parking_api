@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -35,7 +37,7 @@ public class Renting {
     @Column
     private double dayPrice;
 
-    @OneToOne
+    @OneToOne(mappedBy = "renting")
     @JoinColumn(name = "idParkingSpace")
     private ParkingSpace parkingSpace;
 }

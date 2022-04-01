@@ -3,6 +3,7 @@ package com.mikaelsonbraz.parkingapi.api.parkingSpace.service.impl;
 import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.entity.ParkingSpace;
 import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.repository.ParkingSpaceRepository;
 import com.mikaelsonbraz.parkingapi.api.parkingSpace.service.ParkingSpaceService;
+import com.mikaelsonbraz.parkingapi.api.renting.model.entity.Renting;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -29,10 +30,19 @@ public class ParkingSpaceServiceImpl implements ParkingSpaceService {
 
     @Override
     public ParkingSpace update(ParkingSpace space) {
-        if (space.getRenting() != null && space.getRenting().getDepartureDate() != null){
+        if (space.getRenting() != null || space.getRenting().getDepartureDate() != null){
             space.setOccupied(false);
             space.setRenting(null);
+        } else if (space.getRenting().getDepartureDate() == null){
+            space.setOccupied(true);
         }
+        return this.repository.save(space);
+    }
+
+    @Override
+    public ParkingSpace setRentingOnParkingSpace(ParkingSpace space, Renting renting){
+        space.setRenting(renting);
+        space.setOccupied(renting != null);
         return this.repository.save(space);
     }
 

@@ -2,6 +2,7 @@ package com.mikaelsonbraz.parkingapi.api.renting.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.entity.ParkingSpace;
 import com.mikaelsonbraz.parkingapi.api.renting.dto.DepartureDateDTO;
 import com.mikaelsonbraz.parkingapi.api.renting.dto.RentingDTO;
 import com.mikaelsonbraz.parkingapi.api.renting.model.entity.Renting;

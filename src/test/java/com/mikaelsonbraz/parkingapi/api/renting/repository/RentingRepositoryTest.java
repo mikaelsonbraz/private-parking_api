@@ -1,5 +1,6 @@
 package com.mikaelsonbraz.parkingapi.api.renting.repository;
 
+import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.entity.ParkingSpace;
 import com.mikaelsonbraz.parkingapi.api.renting.model.entity.Renting;
 import com.mikaelsonbraz.parkingapi.api.renting.model.repository.RentingRepository;
 import org.assertj.core.api.Assertions;
@@ -25,11 +26,15 @@ public class RentingRepositoryTest {
     @Autowired
     RentingRepository repository;
 
+    public ParkingSpace createParkingSpace(){
+        return ParkingSpace.builder().idSpace(2).spaceType(1).build();
+    }
+
     @Test
     @DisplayName("Must return true when the departure date is not null")
     public void existsDepartureDateTest(){
         //cenario
-        Renting renting = Renting.builder().entryDate(LocalDateTime.now()).departureDate(LocalDateTime.of(2023, 8, 12, 5, 15)).build();
+        Renting renting = Renting.builder().entryDate(LocalDateTime.now()).departureDate(LocalDateTime.of(2023, 8, 12, 5, 15)).parkingSpace(createParkingSpace()).build();
         entityManager.persist(renting);
 
         //execução
@@ -43,7 +48,7 @@ public class RentingRepositoryTest {
     @DisplayName("Must return false when not exists departure date on renting")
     public void notExistsdepartureDate(){
         //cenário
-        Renting renting = Renting.builder().entryDate(LocalDateTime.now()).build();
+        Renting renting = Renting.builder().entryDate(LocalDateTime.now()).parkingSpace(createParkingSpace()).build();
         entityManager.persist(renting);
 
         //execuçção
