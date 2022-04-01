@@ -13,5 +13,8 @@ public interface ParkingSpaceService {
 
     ParkingSpace update(ParkingSpace space);
 
+    ParkingSpace setRentingOnParkingSpace(ParkingSpace space, Renting renting);
+
     void delete(ParkingSpace space);
+
 }

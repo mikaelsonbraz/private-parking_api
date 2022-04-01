@@ -37,7 +37,7 @@ public class RentingDTO implements Serializable {
     @Positive
     private double dayPrice;
 
-    @OneToOne
+    @OneToOne(mappedBy = "renting")
     @JoinColumn(name = "idParkingSpace")
     private ParkingSpace parkingSpace;
 }

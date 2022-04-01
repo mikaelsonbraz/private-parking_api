@@ -3,14 +3,10 @@ package com.mikaelsonbraz.parkingapi.api.customer.resource;
 import com.mikaelsonbraz.parkingapi.api.customer.dto.CustomerDTO;
 import com.mikaelsonbraz.parkingapi.api.customer.model.entity.Customer;
 import com.mikaelsonbraz.parkingapi.api.customer.service.CustomerService;
-import com.mikaelsonbraz.parkingapi.api.exceptions.ApiErrors;
-import com.mikaelsonbraz.parkingapi.api.exceptions.BusinessException;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 

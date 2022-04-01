@@ -1,6 +1,8 @@
 package com.mikaelsonbraz.parkingapi.api.renting.service;
 
 import com.mikaelsonbraz.parkingapi.api.exceptions.BusinessException;
+import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.entity.ParkingSpace;
+import com.mikaelsonbraz.parkingapi.api.parkingSpace.service.ParkingSpaceService;
 import com.mikaelsonbraz.parkingapi.api.renting.model.entity.Renting;
 import com.mikaelsonbraz.parkingapi.api.renting.model.repository.RentingRepository;
 import com.mikaelsonbraz.parkingapi.api.renting.service.impl.RentingServiceImpl;
@@ -25,10 +27,17 @@ public class RentingServiceTest {
     RentingService service;
 
     @MockBean
+    ParkingSpaceService parkingSpaceService;
+
+    @MockBean
     RentingRepository repository;
 
     public Renting createNewRenting(){
-        return Renting.builder().idRenting(1).entryDate(LocalDateTime.of(2020, 8, 19, 14, 30)).hourPrice(5).dayPrice(100).build();
+        return Renting.builder().idRenting(1).entryDate(LocalDateTime.of(2020, 8, 19, 14, 30)).parkingSpace(createParkingSpace()).hourPrice(5).dayPrice(100).build();
+    }
+
+    public ParkingSpace createParkingSpace(){
+        return ParkingSpace.builder().idSpace(1).spaceType(1).build();
     }
 
     @Autowired
@@ -37,7 +46,7 @@ public class RentingServiceTest {
 
     @BeforeEach
     public void setUp(){
-        this.service = new RentingServiceImpl(repository);
+        this.service = new RentingServiceImpl(repository, parkingSpaceService);
     }
 
     @Test
@@ -55,6 +64,38 @@ public class RentingServiceTest {
         Assertions.assertThat(savedRenting.getEntryDate()).isEqualTo(renting.getEntryDate());
         Assertions.assertThat(savedRenting.getHourPrice()).isEqualTo(renting.getHourPrice());
         Assertions.assertThat(savedRenting.getDayPrice()).isEqualTo(renting.getDayPrice());
+    }
+
+    @Test
+    @DisplayName("Must verify if service.save() of Renting called parkingSpaceService.setOccupiedTrue() of ParkingSpace")
+    public void turnOccupiedTrueAndSaveTheRentingInParkingSpaceUsed(){
+        //cenário
+        Renting renting = createNewRenting();
+        Mockito.when(repository.save(renting)).thenReturn(renting);
+
+        //execução
+        Renting savedRenting = service.save(renting);
+
+        //verificação
+        Mockito.verify(parkingSpaceService, Mockito.times(1)).setRentingOnParkingSpace(renting.getParkingSpace(), renting);
+        Assertions.assertThat(savedRenting.getParkingSpace().isOccupied()).isTrue();
+    }
+
+    @Test
+    @DisplayName("Must verify if service.update of Renting called parkingSpaceService.setOccupiedFalse() of ParkingSpace")
+    public void turnOccupiedFalseAndUpdateNullInParkingSpaceUsed(){
+        //cenário
+        Renting renting = createNewRenting();
+        renting.getParkingSpace().setOccupied(true);
+        renting.setDepartureDate(LocalDateTime.now());
+        Mockito.when(repository.save(renting)).thenReturn(renting);
+
+        //execução
+        Renting updatedRenting = service.update(renting);
+
+        //verificação
+        Mockito.verify(parkingSpaceService, Mockito.times(1)).setRentingOnParkingSpace(renting.getParkingSpace(), null);
+        Assertions.assertThat(updatedRenting.getParkingSpace().isOccupied()).isFalse();
     }
 
     @Test
