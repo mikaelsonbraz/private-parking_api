@@ -28,6 +28,7 @@ public class ParkingSpace {
 
     @JsonIgnore
     @OneToOne
+    @JoinColumn(name = "id_renting")
     private Renting renting;
 
     @Column

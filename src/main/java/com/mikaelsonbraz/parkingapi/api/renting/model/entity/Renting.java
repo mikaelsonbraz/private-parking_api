@@ -38,6 +38,6 @@ public class Renting {
     private double dayPrice;
 
     @OneToOne(mappedBy = "renting")
-    @JoinColumn(name = "idParkingSpace")
+    @JoinColumn(name = "id_ParkingSpace")
     private ParkingSpace parkingSpace;
 }
