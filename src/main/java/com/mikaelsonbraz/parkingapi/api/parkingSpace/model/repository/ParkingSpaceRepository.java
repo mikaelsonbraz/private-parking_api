@@ -4,4 +4,8 @@ import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.entity.ParkingSpace;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ParkingSpaceRepository extends JpaRepository<ParkingSpace, Integer> {
+
+    default boolean occupiedById(Integer id){
+        return getById(id).isOccupied();
+    }
 }
