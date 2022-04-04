@@ -2,6 +2,7 @@ package com.mikaelsonbraz.parkingapi.api.address.model.entity;
 
 
 import com.mikaelsonbraz.parkingapi.api.city.model.entity.City;
+import com.mikaelsonbraz.parkingapi.api.customer.model.entity.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,4 +34,8 @@ public class Address {
     @ManyToOne
     @JoinColumn(name = "id_city")
     private City city;
+
+    @OneToOne
+    @JoinColumn(name = "id_customer")
+    private Customer customer;
 }
