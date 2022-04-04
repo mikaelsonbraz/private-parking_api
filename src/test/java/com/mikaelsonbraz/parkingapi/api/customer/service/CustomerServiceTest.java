@@ -1,9 +1,12 @@
 package com.mikaelsonbraz.parkingapi.api.customer.service;
 
+import com.mikaelsonbraz.parkingapi.api.address.model.entity.Address;
+import com.mikaelsonbraz.parkingapi.api.city.model.entity.City;
 import com.mikaelsonbraz.parkingapi.api.customer.model.entity.Customer;
 import com.mikaelsonbraz.parkingapi.api.customer.model.repository.CustomerRepository;
 import com.mikaelsonbraz.parkingapi.api.customer.service.impl.CustomerServiceImpl;
 import com.mikaelsonbraz.parkingapi.api.exceptions.BusinessException;
+import com.mikaelsonbraz.parkingapi.api.state.model.entity.State;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -199,5 +202,25 @@ public class CustomerServiceTest {
         Assertions.assertThat(result.getPageable().getPageNumber()).isEqualTo(0);
         Assertions.assertThat(result.getPageable().getPageSize()).isEqualTo(10);
 
+    }
+
+    @Test
+    @DisplayName("Must verify is address is correctly saved on customer data")
+    public void addressOfCustomerTest(){
+        //cenário
+        Customer customer = Customer.builder().idCustomer(1).cpf("111").name("João").build();
+        State rn = State.builder().idState(1).name("Rio Grande do Norte").build();
+        City santaninha = City.builder().idCity(1).name("Santana").state(rn).build();
+        Address address = Address.builder().idAddress(1).cep("11111-000").city(santaninha).build();
+        customer.setAddress(address);
+        Mockito.when(repository.save(Mockito.any(Customer.class))).thenReturn(customer);
+
+        //execução
+        Customer savedCustomer = service.save(customer);
+
+        //verificação
+        Assertions.assertThat(savedCustomer.getAddress().getIdAddress()).isEqualTo(address.getIdAddress());
+        Assertions.assertThat(savedCustomer.getAddress().getCity().getName()).isEqualTo("Santana");
+        Assertions.assertThat(savedCustomer.getAddress().getCity().getState().getName()).isEqualTo("Rio Grande do Norte");
     }
 }
