@@ -1,5 +1,6 @@
 package com.mikaelsonbraz.parkingapi.api.customer.dto;
 
+import com.mikaelsonbraz.parkingapi.api.address.model.entity.Address;
 import lombok.*;
 
 import javax.persistence.GeneratedValue;
@@ -25,5 +26,8 @@ public class CustomerDTO implements Serializable {
 
     @NotEmpty
     private String cpf;
+
+    @NotEmpty
+    private Address address;
 
 }
