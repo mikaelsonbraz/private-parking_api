@@ -27,7 +27,6 @@ public class CustomerDTO implements Serializable {
     @NotEmpty
     private String cpf;
 
-    @NotEmpty
     private Address address;
 
 }
