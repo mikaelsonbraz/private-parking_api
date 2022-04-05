@@ -37,7 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void delete(Customer customer) {
         if (customer == null || customer.getIdCustomer() == null){
-            throw new IllegalArgumentException("Customer id not be null");
+            throw new IllegalArgumentException("Customer id cannot be null");
         }
         this.repository.delete(customer);
     }
@@ -45,7 +45,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer update(Customer customer) {
         if (customer == null || customer.getIdCustomer() == null){
-            throw new IllegalArgumentException("Customer id not be null");
+            throw new IllegalArgumentException("Customer id cannot be null");
         }
         return this.repository.save(customer);
     }

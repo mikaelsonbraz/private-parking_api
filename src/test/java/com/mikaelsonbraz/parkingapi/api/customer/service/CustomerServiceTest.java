@@ -155,13 +155,12 @@ public class CustomerServiceTest {
     @DisplayName("Should update a customer on database")
     public void updateCustomerTest(){
         //cenario
-        Customer updatingCustomer = Customer.builder().idCustomer(1).name("João").cpf("333.333.333-33").build();
         Customer updatedCustomer = Customer.builder().idCustomer(1).name("José").cpf("444.444.444-44").build();
 
         Mockito.when(repository.save(Mockito.any(Customer.class))).thenReturn(updatedCustomer);
 
         //execução
-        Customer customer = service.update(updatingCustomer);
+        Customer customer = service.update(updatedCustomer);
 
         //verificações
         Assertions.assertThat(customer.getIdCustomer()).isEqualTo(updatedCustomer.getIdCustomer());
