@@ -1,5 +1,6 @@
 package com.mikaelsonbraz.parkingapi.api.renting.model.entity;
 
+import com.mikaelsonbraz.parkingapi.api.order.model.entity.Order;
 import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.entity.ParkingSpace;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,4 +41,8 @@ public class Renting {
     @OneToOne(mappedBy = "renting")
     @JoinColumn(name = "id_ParkingSpace")
     private ParkingSpace parkingSpace;
+
+    @OneToOne(mappedBy = "renting")
+    @JoinColumn(name = "id_order")
+    private Order order;
 }

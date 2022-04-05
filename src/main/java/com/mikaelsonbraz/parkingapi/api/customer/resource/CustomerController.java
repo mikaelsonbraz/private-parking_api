@@ -16,8 +16,8 @@ import javax.validation.Valid;
 @RequestMapping("/api/customers")
 public class CustomerController {
 
-    private CustomerService service;
-    private ModelMapper modelMapper;
+    private final CustomerService service;
+    private final ModelMapper modelMapper;
 
     public CustomerController(CustomerService service, ModelMapper Modelmapper) {
         this.service = service;
