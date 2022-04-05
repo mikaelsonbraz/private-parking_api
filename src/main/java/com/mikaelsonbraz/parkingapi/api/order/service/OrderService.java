@@ -13,4 +13,6 @@ public interface OrderService {
     void delete(Order order);
 
     Order update(Order order);
+
+    Order updateAmount(Order order);
 }
