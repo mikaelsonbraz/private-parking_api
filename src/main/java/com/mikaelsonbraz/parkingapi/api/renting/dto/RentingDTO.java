@@ -1,5 +1,6 @@
 package com.mikaelsonbraz.parkingapi.api.renting.dto;
 
+import com.mikaelsonbraz.parkingapi.api.order.model.entity.Order;
 import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.entity.ParkingSpace;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,6 +39,7 @@ public class RentingDTO implements Serializable {
     private double dayPrice;
 
     @OneToOne(mappedBy = "renting")
-    @JoinColumn(name = "idParkingSpace")
     private ParkingSpace parkingSpace;
+
+    private Order order;
 }
