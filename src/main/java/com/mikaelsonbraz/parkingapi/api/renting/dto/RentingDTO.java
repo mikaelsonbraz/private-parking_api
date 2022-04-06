@@ -41,5 +41,6 @@ public class RentingDTO implements Serializable {
     @OneToOne(mappedBy = "renting")
     private ParkingSpace parkingSpace;
 
+    @OneToOne(mappedBy = "renting")
     private Order order;
 }
