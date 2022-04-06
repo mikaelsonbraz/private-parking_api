@@ -28,4 +28,8 @@ public class OrderDTO implements Serializable {
     private Customer customer;
 
     private Renting renting;
+
+    public Renting getRenting(){
+        return renting;
+    }
 }
