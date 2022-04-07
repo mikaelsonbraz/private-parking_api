@@ -2,13 +2,10 @@ package com.mikaelsonbraz.parkingapi.api.parkingSpace.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.mikaelsonbraz.parkingapi.api.customer.dto.CustomerDTO;
 import com.mikaelsonbraz.parkingapi.api.parkingSpace.dto.ParkingSpaceDTO;
 import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.entity.ParkingSpace;
 import com.mikaelsonbraz.parkingapi.api.parkingSpace.service.ParkingSpaceService;
-import com.mikaelsonbraz.parkingapi.api.renting.dto.RentingDTO;
-import com.mikaelsonbraz.parkingapi.api.renting.model.entity.Renting;
-import org.hamcrest.Matchers;
+import com.mikaelsonbraz.parkingapi.api.resource.ParkingSpaceController;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,7 +23,6 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)

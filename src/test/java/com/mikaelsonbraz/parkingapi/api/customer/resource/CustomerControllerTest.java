@@ -5,6 +5,7 @@ import com.mikaelsonbraz.parkingapi.api.customer.dto.CustomerDTO;
 import com.mikaelsonbraz.parkingapi.api.customer.model.entity.Customer;
 import com.mikaelsonbraz.parkingapi.api.customer.service.CustomerService;
 import com.mikaelsonbraz.parkingapi.api.exceptions.BusinessException;
+import com.mikaelsonbraz.parkingapi.api.resource.CustomerController;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,6 +1,8 @@
 package com.mikaelsonbraz.parkingapi.api.parkingSpace.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.spaceTypeENUM.SpaceType;
 import com.mikaelsonbraz.parkingapi.api.renting.model.entity.Renting;
 import lombok.AllArgsConstructor;
@@ -26,7 +28,8 @@ public class ParkingSpace {
     @Column
     private Integer spaceType;
 
-    @JsonIgnore
+    @JsonManagedReference
+    @JsonIdentityReference(alwaysAsId = true)
     @OneToOne
     @JoinColumn(name = "id_renting")
     private Renting renting;

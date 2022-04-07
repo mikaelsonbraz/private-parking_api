@@ -1,13 +1,11 @@
 package com.mikaelsonbraz.parkingapi.api.customer.dto;
 
-import com.mikaelsonbraz.parkingapi.api.address.model.entity.Address;
-import com.mikaelsonbraz.parkingapi.api.order.model.entity.Order;
+import com.mikaelsonbraz.parkingapi.api.ordered.model.entity.Ordered;
 import lombok.*;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 
 import java.io.Serializable;
@@ -31,7 +29,5 @@ public class CustomerDTO implements Serializable {
     @NotEmpty
     private String cpf;
 
-    private Address address;
-
-    private List<Order> orders = new ArrayList<>();
+    private List<Ordered> ordereds = new ArrayList<>();
 }
