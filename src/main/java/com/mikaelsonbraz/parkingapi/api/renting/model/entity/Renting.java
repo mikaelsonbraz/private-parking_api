@@ -1,6 +1,7 @@
 package com.mikaelsonbraz.parkingapi.api.renting.model.entity;
 
-import com.mikaelsonbraz.parkingapi.api.order.model.entity.Order;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.mikaelsonbraz.parkingapi.api.ordered.model.entity.Ordered;
 import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.entity.ParkingSpace;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,11 +36,13 @@ public class Renting {
     @Column
     private double dayPrice;
 
+    @JsonBackReference
     @OneToOne(mappedBy = "renting")
     @JoinColumn(name = "id_ParkingSpace")
     private ParkingSpace parkingSpace;
 
+    @JsonBackReference
     @OneToOne(mappedBy = "renting")
     @JoinColumn(name = "id_order")
-    private Order order;
+    private Ordered ordered;
 }

@@ -1,10 +1,13 @@
 package com.mikaelsonbraz.parkingapi.api.customer.model.entity;
 
-import com.mikaelsonbraz.parkingapi.api.address.model.entity.Address;
-import com.mikaelsonbraz.parkingapi.api.order.model.entity.Order;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mikaelsonbraz.parkingapi.api.ordered.model.entity.Ordered;
 import lombok.*;
+import net.bytebuddy.implementation.bind.annotation.Empty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,10 +30,7 @@ public class Customer {
     @Column
     private String cpf;
 
-    @OneToOne
-    @JoinColumn(name = "id_address")
-    private Address address;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "customer")
-    private List<Order> orders = new ArrayList<>();
+    private List<Ordered> ordereds = new ArrayList<>();
 }
