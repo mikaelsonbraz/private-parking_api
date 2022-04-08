@@ -50,13 +50,13 @@ public class Renting {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Renting renting = (Renting) o;
-        return idRenting != null && Objects.equals(idRenting, renting.idRenting);
+        return Double.compare(renting.hourPrice, hourPrice) == 0 && Double.compare(renting.dayPrice, dayPrice) == 0 && Objects.equals(idRenting, renting.idRenting) && Objects.equals(entryDate, renting.entryDate) && Objects.equals(departureDate, renting.departureDate) && Objects.equals(parkingSpace, renting.parkingSpace) && Objects.equals(ordered, renting.ordered);
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(idRenting, entryDate, departureDate, hourPrice, dayPrice, parkingSpace, ordered);
     }
 }

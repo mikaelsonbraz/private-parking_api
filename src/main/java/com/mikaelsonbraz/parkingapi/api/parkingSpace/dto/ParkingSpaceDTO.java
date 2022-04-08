@@ -29,10 +29,6 @@ public class ParkingSpaceDTO implements Serializable {
     @NotNull
     private Integer spaceType;
 
-    @JsonIgnore
-    @OneToOne
-    private Renting renting;
-
     public SpaceType getSpaceType(){
         return SpaceType.toEnum(spaceType);
     }

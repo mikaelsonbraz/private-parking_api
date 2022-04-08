@@ -67,38 +67,6 @@ public class RentingServiceTest {
     }
 
     @Test
-    @DisplayName("Must verify if service.save() of Renting called parkingSpaceService.setOccupiedTrue() of ParkingSpace")
-    public void turnOccupiedTrueAndSaveTheRentingInParkingSpaceUsed(){
-        //cenário
-        Renting renting = createNewRenting();
-        Mockito.when(repository.save(renting)).thenReturn(renting);
-
-        //execução
-        Renting savedRenting = service.save(renting);
-
-        //verificação
-        Mockito.verify(parkingSpaceService, Mockito.times(1)).setRentingOnParkingSpace(renting.getParkingSpace(), renting);
-        Assertions.assertThat(savedRenting.getParkingSpace().isOccupied()).isTrue();
-    }
-
-    @Test
-    @DisplayName("Must verify if service.update of Renting called parkingSpaceService.setOccupiedFalse() of ParkingSpace")
-    public void turnOccupiedFalseAndUpdateNullInParkingSpaceUsed(){
-        //cenário
-        Renting renting = createNewRenting();
-        renting.getParkingSpace().setOccupied(true);
-        renting.setDepartureDate(LocalDateTime.now());
-        Mockito.when(repository.save(renting)).thenReturn(renting);
-
-        //execução
-        Renting updatedRenting = service.update(renting);
-
-        //verificação
-        Mockito.verify(parkingSpaceService, Mockito.times(1)).setRentingOnParkingSpace(renting.getParkingSpace(), null);
-        Assertions.assertThat(updatedRenting.getParkingSpace().isOccupied()).isFalse();
-    }
-
-    @Test
     @DisplayName("Must throw an error when entryDate receives an invalid value")
     public void shouldThrowErrorWhenEntryDateIsInvalidTest(){
         //cenario

@@ -3,6 +3,8 @@ package com.mikaelsonbraz.parkingapi.api.resource;
 import com.mikaelsonbraz.parkingapi.api.ordered.dto.OrderDTO;
 import com.mikaelsonbraz.parkingapi.api.ordered.model.entity.Ordered;
 import com.mikaelsonbraz.parkingapi.api.ordered.service.OrderService;
+import com.mikaelsonbraz.parkingapi.api.renting.dto.DepartureDateDTO;
+import com.mikaelsonbraz.parkingapi.api.renting.dto.RentingDTO;
 import com.mikaelsonbraz.parkingapi.api.renting.model.entity.Renting;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -61,11 +63,10 @@ public class OrderedController {
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation("Update a order with renting departure date")
-    public OrderDTO patch(@PathVariable Integer id, OrderDTO orderDTO){
-        Renting renting = orderDTO.getRenting();
+    public OrderDTO patch(@PathVariable Integer id, DepartureDateDTO dto){
         return service.getById(id)
                 .map(order -> {;
-                    order.getRenting().setDepartureDate(renting.getDepartureDate());
+                    order.getRenting().setDepartureDate(dto.getDepartureDate());
                     order = service.updateAmount(order);
                     return modelMapper.map(order, OrderDTO.class);
                 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

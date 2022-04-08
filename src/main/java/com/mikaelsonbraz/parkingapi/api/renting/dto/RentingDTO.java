@@ -38,9 +38,4 @@ public class RentingDTO implements Serializable {
     @Positive
     private double dayPrice;
 
-    @OneToOne(mappedBy = "renting")
-    private ParkingSpace parkingSpace;
-
-    @OneToOne(mappedBy = "renting")
-    private Ordered ordered;
 }

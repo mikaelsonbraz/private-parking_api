@@ -28,6 +28,4 @@ public class CustomerDTO implements Serializable {
 
     @NotEmpty
     private String cpf;
-
-    private List<Ordered> ordereds = new ArrayList<>();
 }
