@@ -4,6 +4,8 @@ import com.mikaelsonbraz.parkingapi.api.renting.dto.DepartureDateDTO;
 import com.mikaelsonbraz.parkingapi.api.renting.dto.RentingDTO;
 import com.mikaelsonbraz.parkingapi.api.renting.model.entity.Renting;
 import com.mikaelsonbraz.parkingapi.api.renting.service.RentingService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/rents")
 @RequiredArgsConstructor
+@Api("RENTING API")
 public class RentingController {
 
     private final RentingService service;
@@ -22,6 +25,7 @@ public class RentingController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation("Create a renting")
     public RentingDTO create(@RequestBody @Valid RentingDTO rentingDTO){
 
         Renting entity = modelMapper.map(rentingDTO, Renting.class);
@@ -33,6 +37,7 @@ public class RentingController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Get a renting")
     public RentingDTO get(@PathVariable Integer id){
         return service.getById(id)
                 .map(renting -> modelMapper.map(renting, RentingDTO.class))
@@ -41,6 +46,7 @@ public class RentingController {
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Update a renting")
     public void updateRenting(@PathVariable Integer id, @RequestBody DepartureDateDTO dto){
         Renting renting = service.getById(id).get();
         renting.setDepartureDate(dto.getDepartureDate());
@@ -50,6 +56,7 @@ public class RentingController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiOperation("Delete a renting")
     public void deleteRenting(@PathVariable Integer id){
         Renting renting = service.getById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
