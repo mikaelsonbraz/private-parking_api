@@ -28,8 +28,7 @@ public class ParkingSpace {
     @Column
     private Integer spaceType;
 
-    @JsonManagedReference
-    @JsonIdentityReference(alwaysAsId = true)
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "id_renting")
     private Renting renting;
