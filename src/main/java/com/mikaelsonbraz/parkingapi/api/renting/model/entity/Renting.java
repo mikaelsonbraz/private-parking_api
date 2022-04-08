@@ -1,18 +1,18 @@
 package com.mikaelsonbraz.parkingapi.api.renting.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mikaelsonbraz.parkingapi.api.ordered.model.entity.Ordered;
 import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.entity.ParkingSpace;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -46,4 +46,17 @@ public class Renting {
     @OneToOne(mappedBy = "renting")
     @JoinColumn(name = "id_order")
     private Ordered ordered;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Renting renting = (Renting) o;
+        return idRenting != null && Objects.equals(idRenting, renting.idRenting);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

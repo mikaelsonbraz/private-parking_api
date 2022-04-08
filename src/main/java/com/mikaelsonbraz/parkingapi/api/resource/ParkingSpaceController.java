@@ -6,6 +6,8 @@ import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.entity.ParkingSpace;
 import com.mikaelsonbraz.parkingapi.api.parkingSpace.service.ParkingSpaceService;
 import com.mikaelsonbraz.parkingapi.api.renting.dto.RentingDTO;
 import com.mikaelsonbraz.parkingapi.api.renting.model.entity.Renting;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/spaces")
+@Api("PARKING SPACE API")
 public class ParkingSpaceController {
 
     private final ParkingSpaceService service;
@@ -29,6 +32,7 @@ public class ParkingSpaceController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation("Create an space")
     public ParkingSpaceDTO create(@RequestBody @Valid ParkingSpaceDTO dto){
 
         ParkingSpace entity = modelMapper.map(dto, ParkingSpace.class);
@@ -40,6 +44,7 @@ public class ParkingSpaceController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation("Get a space")
     public ParkingSpaceDTO get(@PathVariable Integer id){
         return service.getById(id)
                 .map(space -> modelMapper.map(space, ParkingSpaceDTO.class))
@@ -48,6 +53,7 @@ public class ParkingSpaceController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiOperation("Delete a space")
     public void delete(@PathVariable Integer id){
         ParkingSpace space = service.getById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
