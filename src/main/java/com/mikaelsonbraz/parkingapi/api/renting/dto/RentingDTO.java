@@ -38,4 +38,6 @@ public class RentingDTO implements Serializable {
     @Positive
     private double dayPrice;
 
+    private ParkingSpace space;
+
 }

@@ -43,7 +43,7 @@ public class Renting {
     private ParkingSpace parkingSpace;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "renting")
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_order")
     private Ordered ordered;
 

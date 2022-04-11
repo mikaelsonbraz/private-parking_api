@@ -136,7 +136,7 @@ public class RentingControllerTest {
         //verificação
         mvc.perform(request)
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
-                .andExpect(MockMvcResultMatchers.jsonPath("errors", Matchers.hasSize(3)));
+                .andExpect(MockMvcResultMatchers.jsonPath("errors", Matchers.hasSize(4)));
     }
 
     @Test
