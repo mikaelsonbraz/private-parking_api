@@ -16,7 +16,7 @@ import java.util.Objects;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table
+@Table(name = "ordered")
 @Entity
 public class Ordered {
 
