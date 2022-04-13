@@ -140,31 +140,6 @@ public class RentingControllerTest {
     }
 
     @Test
-    @DisplayName("Must update a departure date on a renting")
-    public void updateDepartureDateTest() throws Exception{
-        //cenário
-        LocalDateTime localDateTime = LocalDateTime.of(2020, 8, 19, 13, 30);
-        DepartureDateDTO dto = DepartureDateDTO.builder().departureDate(localDateTime).build();
-        BDDMockito.given(service.getById(Mockito.anyInt())).willReturn(Optional.of(Renting.builder().idRenting(1).build()));
-
-        String json = mapper.writeValueAsString(dto);
-
-        //execução
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .patch(RENTING_API.concat("/1"))
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(json);
-
-        //verificação
-        mvc.perform(request)
-                .andExpect(MockMvcResultMatchers.status().isOk());
-
-        Mockito.verify(service, Mockito.times(1)).update(Renting.builder().idRenting(1).departureDate(localDateTime).build());
-
-    }
-
-    @Test
     @DisplayName("Must delete a renting and return HttpStatus.NO_CONTENT")
     public void deleteRentingTest() throws Exception{
         //cenário

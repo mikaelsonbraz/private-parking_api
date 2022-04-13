@@ -44,16 +44,6 @@ public class RentingController {
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @PatchMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    @ApiOperation("Update a renting")
-    public void updateRenting(@PathVariable Integer id, @RequestBody DepartureDateDTO dto){
-        Renting renting = service.getById(id).get();
-        renting.setDepartureDate(dto.getDepartureDate());
-
-        service.update(renting);
-    }
-
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ApiOperation("Delete a renting")
