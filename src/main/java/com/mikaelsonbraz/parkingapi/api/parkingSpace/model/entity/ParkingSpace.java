@@ -28,7 +28,7 @@ public class ParkingSpace {
     private Integer spaceType;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "ordered")
+    @OneToOne
     @JoinColumn(name = "id_renting")
     private Renting renting;
 
