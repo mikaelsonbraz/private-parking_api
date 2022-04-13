@@ -32,9 +32,9 @@ ________
 - DELETE http://localhost:8080/api/spaces/{id} (Deleta uma vaga de estacionamento pelo id)
 
 <h4>RENTING</h4>
-- POST http://localhost:8080/api/rentings (Adiciona um novo aluguel)
-- GET http://localhost:8080/api/rentings/{id} (Lista um aluguel pelo id passado)
-- DELETE http://localhost:8080/api/rentings/{id} (Deleta um aluguel pelo id)
+- POST http://localhost:8080/api/rents (Adiciona um novo aluguel)
+- GET http://localhost:8080/api/rents/{id} (Lista um aluguel pelo id passado)
+- DELETE http://localhost:8080/api/rents/{id} (Deleta um aluguel pelo id)
 
 <h4>ORDERED</h4>
 - POST http://localhost:8080/api/orders (Adiciona um novo pedido)
