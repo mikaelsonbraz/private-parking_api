@@ -38,7 +38,7 @@ public class Renting {
     private double dayPrice;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "renting")
+    @OneToOne
     @JoinColumn(name = "id_ParkingSpace")
     private ParkingSpace parkingSpace;
 

@@ -34,7 +34,7 @@ public class RentingRepositoryTest {
     @DisplayName("Must return true when the departure date is not null")
     public void existsDepartureDateTest(){
         //cenario
-        Renting renting = Renting.builder().entryDate(LocalDateTime.now()).departureDate(LocalDateTime.of(2023, 8, 12, 5, 15)).parkingSpace(createParkingSpace()).build();
+        Renting renting = Renting.builder().entryDate(LocalDateTime.now()).departureDate(LocalDateTime.of(2023, 8, 12, 5, 15)).build();
         entityManager.persist(renting);
 
         //execução
@@ -48,7 +48,7 @@ public class RentingRepositoryTest {
     @DisplayName("Must return false when not exists departure date on renting")
     public void notExistsdepartureDate(){
         //cenário
-        Renting renting = Renting.builder().entryDate(LocalDateTime.now()).parkingSpace(createParkingSpace()).build();
+        Renting renting = Renting.builder().entryDate(LocalDateTime.now()).build();
         entityManager.persist(renting);
 
         //execuçção
