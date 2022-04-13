@@ -32,6 +32,7 @@ ________
 - DELETE http://localhost:8080/api/customers/{id} (Deleta um customer através do id)
 
 <h3>PARKING SPACE</h3>
+
 - POST http://localhost:8080/api/spaces (Adiciona uma nova vaga de estacionamento)
 
 - GET http://localhost:8080/api/spaces/{id} (Lista uma vaga pelo id)
@@ -39,6 +40,7 @@ ________
 - DELETE http://localhost:8080/api/spaces/{id} (Deleta uma vaga de estacionamento pelo id)
 
 <h3>RENTING</h3>
+
 - POST http://localhost:8080/api/rents (Adiciona um novo aluguel)
 
 - GET http://localhost:8080/api/rents/{id} (Lista um aluguel pelo id passado)
@@ -46,6 +48,7 @@ ________
 - DELETE http://localhost:8080/api/rents/{id} (Deleta um aluguel pelo id)
 
 <h3>ORDERED</h3>
+
 - POST http://localhost:8080/api/orders (Adiciona um novo pedido)
 
 - GET http://localhost:8080/api/orders/{id} (Lista um pedido pelo id)
