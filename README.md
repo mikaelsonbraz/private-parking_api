@@ -19,26 +19,39 @@ mvn spring-boot:run
 ```
 ________
 <h2>ENDPOINTS</h2>
-<h4>CUSTOMER</h4>
+<h3>CUSTOMER</h3>
+
 - POST http://localhost:8080/api/customers (Adiciona um novo customer)
+
 - GET http://localhost:8080/api/customers (Lista todos os customers através de parâmetros)
+
 - GET http://localhost:8080/api/customers/{id} (Lista um customer através do id)
+
 - PUT http://localhost:8080/api/customers/{id} (Atualiza os dados de um customer através do id)
+
 - DELETE http://localhost:8080/api/customers/{id} (Deleta um customer através do id)
 
-<h4>PARKING SPACE</h4>
+<h3>PARKING SPACE</h3>
 - POST http://localhost:8080/api/spaces (Adiciona uma nova vaga de estacionamento)
+
 - GET http://localhost:8080/api/spaces/{id} (Lista uma vaga pelo id)
+
 - DELETE http://localhost:8080/api/spaces/{id} (Deleta uma vaga de estacionamento pelo id)
 
-<h4>RENTING</h4>
+<h3>RENTING</h3>
 - POST http://localhost:8080/api/rents (Adiciona um novo aluguel)
+
 - GET http://localhost:8080/api/rents/{id} (Lista um aluguel pelo id passado)
+
 - DELETE http://localhost:8080/api/rents/{id} (Deleta um aluguel pelo id)
 
-<h4>ORDERED</h4>
+<h3>ORDERED</h3>
 - POST http://localhost:8080/api/orders (Adiciona um novo pedido)
+
 - GET http://localhost:8080/api/orders/{id} (Lista um pedido pelo id)
+
 - PUT http://localhost:8080/api/orders/{id} (Atualiza os dados um pedido pelo id)
+
 - PATCH http://localhost:8080/api/orders/{id} (Atualiza a data de partida de um aluguel pelo id e da o valor total do pedido)
-- DELETE http://localhost:8080/api/orders/{id} (Delete um pedido)
+
+- DELETE http://localhost:8080/api/orders/{id} (Delete um pedido pelo id)
