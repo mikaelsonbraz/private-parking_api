@@ -62,4 +62,4 @@ ________
 _________________________
 
 <h2>MER</h2>
-![parking_space_mer](src/main/resources/static/mer.png)
+![parking_space_mer](https://raw.githubusercontent.com/mikaelsonbraz/private-parking_api/master/src/main/resources/static/mer.png)
