@@ -58,3 +58,8 @@ ________
 - PATCH http://localhost:8080/api/orders/{id} (Atualiza a data de partida de um aluguel pelo id e da o valor total do pedido)
 
 - DELETE http://localhost:8080/api/orders/{id} (Delete um pedido pelo id)
+
+_________________________
+
+<h2>MER</h2>
+![parking_space_mer](src/main/resources/static/mer.png)
