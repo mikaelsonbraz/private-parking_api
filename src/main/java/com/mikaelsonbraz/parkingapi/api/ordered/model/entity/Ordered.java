@@ -3,7 +3,7 @@ package com.mikaelsonbraz.parkingapi.api.ordered.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mikaelsonbraz.parkingapi.api.customer.model.entity.Customer;
-import com.mikaelsonbraz.parkingapi.api.renting.model.entity.Renting;
+import com.mikaelsonbraz.parkingapi.api.resource.renting.model.entity.Renting;
 import lombok.*;
 import org.hibernate.Hibernate;
 

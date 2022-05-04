@@ -1,7 +1,7 @@
 package com.mikaelsonbraz.parkingapi.api.ordered.dto;
 
 import com.mikaelsonbraz.parkingapi.api.customer.model.entity.Customer;
-import com.mikaelsonbraz.parkingapi.api.renting.model.entity.Renting;
+import com.mikaelsonbraz.parkingapi.api.resource.renting.model.entity.Renting;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

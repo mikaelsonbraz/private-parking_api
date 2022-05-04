@@ -3,7 +3,7 @@ package com.mikaelsonbraz.parkingapi.api.parkingSpace.service.impl;
 import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.entity.ParkingSpace;
 import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.repository.ParkingSpaceRepository;
 import com.mikaelsonbraz.parkingapi.api.parkingSpace.service.ParkingSpaceService;
-import com.mikaelsonbraz.parkingapi.api.renting.model.entity.Renting;
+import com.mikaelsonbraz.parkingapi.api.resource.renting.model.entity.Renting;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

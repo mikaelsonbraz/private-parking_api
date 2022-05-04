@@ -1,8 +1,8 @@
 package com.mikaelsonbraz.parkingapi.api.renting.repository;
 
 import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.entity.ParkingSpace;
-import com.mikaelsonbraz.parkingapi.api.renting.model.entity.Renting;
-import com.mikaelsonbraz.parkingapi.api.renting.model.repository.RentingRepository;
+import com.mikaelsonbraz.parkingapi.api.resource.renting.model.entity.Renting;
+import com.mikaelsonbraz.parkingapi.api.resource.renting.model.repository.RentingRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

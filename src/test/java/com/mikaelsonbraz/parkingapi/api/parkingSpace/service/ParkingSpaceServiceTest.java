@@ -4,7 +4,7 @@ import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.entity.ParkingSpace;
 import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.repository.ParkingSpaceRepository;
 import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.spaceTypeENUM.SpaceType;
 import com.mikaelsonbraz.parkingapi.api.parkingSpace.service.impl.ParkingSpaceServiceImpl;
-import com.mikaelsonbraz.parkingapi.api.renting.model.entity.Renting;
+import com.mikaelsonbraz.parkingapi.api.resource.renting.model.entity.Renting;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

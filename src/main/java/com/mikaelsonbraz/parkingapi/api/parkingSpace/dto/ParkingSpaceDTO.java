@@ -1,8 +1,6 @@
 package com.mikaelsonbraz.parkingapi.api.parkingSpace.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.spaceTypeENUM.SpaceType;
-import com.mikaelsonbraz.parkingapi.api.renting.model.entity.Renting;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

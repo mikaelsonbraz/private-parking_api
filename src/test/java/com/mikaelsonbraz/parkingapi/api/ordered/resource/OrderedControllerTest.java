@@ -7,7 +7,7 @@ import com.mikaelsonbraz.parkingapi.api.ordered.dto.OrderDTO;
 import com.mikaelsonbraz.parkingapi.api.ordered.model.entity.Ordered;
 import com.mikaelsonbraz.parkingapi.api.ordered.service.OrderService;
 import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.entity.ParkingSpace;
-import com.mikaelsonbraz.parkingapi.api.renting.model.entity.Renting;
+import com.mikaelsonbraz.parkingapi.api.resource.renting.model.entity.Renting;
 import com.mikaelsonbraz.parkingapi.api.resource.OrderedController;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

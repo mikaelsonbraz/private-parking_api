@@ -2,10 +2,9 @@ package com.mikaelsonbraz.parkingapi.api.renting.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.mikaelsonbraz.parkingapi.api.renting.dto.DepartureDateDTO;
-import com.mikaelsonbraz.parkingapi.api.renting.dto.RentingDTO;
-import com.mikaelsonbraz.parkingapi.api.renting.model.entity.Renting;
-import com.mikaelsonbraz.parkingapi.api.renting.service.RentingService;
+import com.mikaelsonbraz.parkingapi.api.resource.renting.dto.RentingDTO;
+import com.mikaelsonbraz.parkingapi.api.resource.renting.model.entity.Renting;
+import com.mikaelsonbraz.parkingapi.api.resource.renting.service.RentingService;
 import com.mikaelsonbraz.parkingapi.api.resource.RentingController;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;

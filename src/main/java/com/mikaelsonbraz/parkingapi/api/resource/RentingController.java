@@ -1,9 +1,8 @@
 package com.mikaelsonbraz.parkingapi.api.resource;
 
-import com.mikaelsonbraz.parkingapi.api.renting.dto.DepartureDateDTO;
-import com.mikaelsonbraz.parkingapi.api.renting.dto.RentingDTO;
-import com.mikaelsonbraz.parkingapi.api.renting.model.entity.Renting;
-import com.mikaelsonbraz.parkingapi.api.renting.service.RentingService;
+import com.mikaelsonbraz.parkingapi.api.resource.renting.dto.RentingDTO;
+import com.mikaelsonbraz.parkingapi.api.resource.renting.model.entity.Renting;
+import com.mikaelsonbraz.parkingapi.api.resource.renting.service.RentingService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

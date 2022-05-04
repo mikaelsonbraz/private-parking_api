@@ -1,14 +1,10 @@
 package com.mikaelsonbraz.parkingapi.api.resource;
 
-import com.mikaelsonbraz.parkingapi.api.customer.service.CustomerService;
 import com.mikaelsonbraz.parkingapi.api.parkingSpace.dto.ParkingSpaceDTO;
 import com.mikaelsonbraz.parkingapi.api.parkingSpace.model.entity.ParkingSpace;
 import com.mikaelsonbraz.parkingapi.api.parkingSpace.service.ParkingSpaceService;
-import com.mikaelsonbraz.parkingapi.api.renting.dto.RentingDTO;
-import com.mikaelsonbraz.parkingapi.api.renting.model.entity.Renting;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
